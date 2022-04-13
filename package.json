@@ -1,0 +1,22 @@
+{
+  "name": "eventapp3",
+  "version": "1.0.0",
+  "description": "gestion des evenements",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "n"
+  ],
+  "author": "hakki rabah",
+  "license": "ISC",
+  "dependencies": {
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.1.3",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "mongoose": "^6.2.10"
+  }
+}
