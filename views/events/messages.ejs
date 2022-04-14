@@ -1,0 +1,44 @@
+
+<% if(locals.message && locals.message!="") { %>
+    <div class="alert alert-success mt-3">
+        <%= message %>
+    </div>
+<% } %>
+
+
+
+
+
+<% if( locals.errors != undefined) { %>
+    <% if( errors.filter(el=>el.param==='title').length!=0) { %>
+        <span class="text-danger">
+            <%= errors.filter(el=>el.param==='title')[0].msg %>
+        </span>
+    <% } %>
+<% } %>
+
+
+<% if( locals.errors) { %>
+    <% if( errors.filter(el=>el.param==='description').length!=0) { %>
+        <span class="text-danger">
+            <%= errors.filter(el=>el.param==='description')[0].msg %>
+        </span>
+    <% } %>
+<% } %>
+
+<% if( locals.errors) { %>
+    <% if( errors.filter(el=>el.param==='location').length!=0) { %>
+        <span class="text-danger">
+            <%= errors.filter(el=>el.param==='location')[0].msg %>
+        </span>
+    <% } %>
+<% } %>
+
+
+<% if( locals.errors) { %>
+    <% if( errors.filter(el=>el.param==='date').length!=0) { %>
+        <span class="text-danger">
+            <%= errors.filter(el=>el.param==='date')[0].msg %>
+        </span>
+    <% } %>
+<% } %>

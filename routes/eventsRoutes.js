@@ -18,11 +18,14 @@ router.post('/',
             .withMessage('the location field must be more than 5 caracter'),
             body('date').isDate()            
             ],(req,res)=>{
-                const errors=validationResult(req)
-                console.log("errors =",errors)
+                const errors=validationResult(req)                
              
                 if(errors.isEmpty()) eventController.addEvent(req,res)
-                else res.render('events/create',{errors,req});
+                else {
+                    req.flash('errors',errors.array());
+                    res.redirect('/events/create')
+                    //res.render('events/create',{errors,req});
+                }
             }
             )
 

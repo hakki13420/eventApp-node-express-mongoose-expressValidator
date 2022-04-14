@@ -1,6 +1,7 @@
 <%- include('../partials/header') -%>    
 <%- include('../partials/navbar') -%> 
-<div class="container">
+<div class="container">   
+    
     <div class="card mt-3">
         <div class="card-header">
             <h4>Event addition</h4>
@@ -13,52 +14,31 @@
                         class="form-control mb-1" 
                         placeholder="title"
                     >                
-                <% if( errors.errors!=undefined) { %>
-                    <% if( errors.errors.filter(el=>el.param==='title').length!=0) { %>
-                        <span class="text-danger">
-                            <%= errors.errors.filter(el=>el.param==='title')[0].msg %>
-                        </span>
-                    <% } %>
-                <% } %>
+                <%- include('./messages') -%>                 
                 <input  type="text" 
                         name="description" 
                         value="<%= req.body.description %>"
                         class="form-control mb-1" 
                         placeholder="description"
                 >
-                <% if( errors.errors!=undefined) { %>
-                    <% if( errors.errors.filter(el=>el.param==='description').length!=0) { %>
-                        <span class="text-danger">
-                            <%= errors.errors.filter(el=>el.param==='description')[0].msg %>
-                        </span>
-                    <% } %>
-                <% } %>
+                <%- include('./messages') -%>                 
+                
                 <input  type="text" 
                         name="location" 
                         value="<%= req.body.location %>"
                         class="form-control mb-1" 
                         placeholder="location"
                 >                
-                <% if( errors.errors!=undefined) { %>
-                    <% if( errors.errors.filter(el=>el.param==='location').length!=0) { %>
-                        <span class="text-danger">
-                            <%= errors.errors.filter(el=>el.param==='location')[0].msg %>
-                        </span>
-                    <% } %>
-                <% } %>
+                <%- include('./messages') -%>                 
+                
                 <input  type="date" 
                         name="date" 
                         value="<%= req.body.date %>"
                         class="form-control mb-1" 
                         placeholder="ddate"
                 >                
-                <% if( errors.errors!=undefined) { %>
-                    <% if( errors.errors.filter(el=>el.param==='date').length!=0) { %>
-                        <span class="text-danger">
-                            <%= errors.errors.filter(el=>el.param==='date')[0].msg %>
-                        </span>
-                    <% } %>
-                <% } %>
+                <%- include('./messages') -%>                 
+                
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn bt btn-primary">Create</button>

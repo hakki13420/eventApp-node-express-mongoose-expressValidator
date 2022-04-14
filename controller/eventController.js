@@ -6,13 +6,15 @@ class eventController{
 
     //get all events
     static getAllEvents(req,res){
+        const message=req.flash('info')
         Event.find()
-            .then((events)=> res.render('events/events',{events}))        
+            .then((events)=> res.render('events/events',{events,message}))        
             .catch(err=>console.log(err))
     }
 
     static CreateEvent(req,res){
-        const errors=[]
+        //const errors=[]
+        const errors=req.flash('errors')
         res.render('events/create',{errors,req})
     }
 
@@ -24,7 +26,10 @@ class eventController{
             date:req.body.date
         });        
         newEvent.save()
-            .then(()=>res.redirect('/events'))
+            .then(()=>{
+                req.flash('info','event added successfuly')
+                res.redirect('/events')
+            })
             .catch(err=>console.log(err))
     }
 
@@ -37,7 +42,12 @@ class eventController{
 
     static removeEvent(req,res){
         Event.findByIdAndDelete(req.params.id,(err)=>{
-            !err?res.redirect('/events'):console.log(err)
+            if(!err){
+                req.flash('info','event deleted successfuly')
+                res.redirect('/events')
+            }else{
+                console.log(err)
+            }
         })          
             
     }
@@ -51,7 +61,10 @@ class eventController{
         }
 
         Event.findByIdAndUpdate({_id:req.params.id},eventUpdate)
-            .then(()=>res.redirect('/events'))
+            .then(()=>{
+                req.flash('info','event updated succefully')
+                res.redirect('/events')
+            })
             .catch(err=>console.log(err))
     }
 
