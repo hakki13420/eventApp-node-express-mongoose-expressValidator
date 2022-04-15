@@ -1,6 +1,7 @@
 <%- include('../partials/header') -%>    
 <%- include('../partials/navbar') -%> 
 <div class="container">
+    
     <div class="card">
         <div class="card-header">
             <h4>Event edition</h4>
@@ -13,24 +14,28 @@
                         class="form-control mb-2" 
                         placeholder="title"
                 >
+                <%- include('./messages') -%>                 
                 <input  type="text" 
                         name="description" 
                         value="<%= event.description %>"
                         class="form-control" 
                         placeholder="description"
                 >
+                <%- include('./messages') -%>                 
                 <input  type="text" 
                         name="location" 
                         value="<%= event.location %>"
                         class="form-control" 
                         placeholder="location"
                 >                
+                <%- include('./messages') -%>                 
                 <input  type="date" 
                         name="date" 
                         value="<%= event.date.toLocaleDateString('en-CA') %>"
                         class="form-control" 
                         placeholder="ddate"
                 >                
+                <%- include('./messages') -%>                 
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn bt btn-primary">Update</button>

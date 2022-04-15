@@ -1,0 +1,35 @@
+<%- include('../partials/header') -%>    
+<%- include('../partials/navbar') -%> 
+
+    <div class="container mt-3 login">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="card card-container">
+                    <div class="card-header text-center">
+                        <h4>login</h4>
+                    </div>                    
+                    <div class="card-body d-flex justify-content-between">
+                        <div class="left-login">
+                            <img src="https://picsum.photos/200" alt="lorem²" />
+                        </div>
+                        <div class="right-login">
+                            <form action="/users/login" method="post">
+                                <input type="email" name="email" class="form-control mb-2" placeholder="email">
+                                <input type="password" name="password" class="form-control" placeholder="email">                                              
+                        </div>
+                    </div>                          
+    
+                    <div class="card-footer">
+                        <div class="d-grid gap-2">                            
+                            <button type="submit" class="btn btn-primary btn-">login</button>
+                            <a href="/users/register" class="btn btn-primary">register</a>
+                        </div>
+                    </div>
+                </form>  
+                </div>
+            </div>
+        </div>    
+    </div>    
+
+
+<%- include('../partials/footer') -%>    

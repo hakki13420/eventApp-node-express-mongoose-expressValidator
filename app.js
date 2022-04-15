@@ -1,5 +1,6 @@
 const express=require('express');
 const eventsRoutes=require('./routes/eventsRoutes')
+const usersRoutes=require('./routes/usersRoutes')
 const bodyParser=require('body-parser');
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -30,7 +31,8 @@ app.use(session({
 app.get('/',(req,res)=>res.redirect('/events'))
 //events routes
 app.use('/events',eventsRoutes)
-
+//users routes
+app.use('/users',usersRoutes)
 
 
 app.listen(5000,()=>console.log('server started succefully'))

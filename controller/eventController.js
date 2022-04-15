@@ -34,8 +34,9 @@ class eventController{
     }
 
     static editEvent(req,res){
+        const errors=req.flash('errors')
         Event.findById({_id:req.params.id})
-                .then(event=>res.render('events/edit',{event}))
+                .then(event=>res.render('events/edit',{event,errors}))
                 .catch(err=>console.log(err))
     }
 
