@@ -38,19 +38,67 @@
                         </div>
                         <div class="card-footer d-flex justify-content-end">
                             <a href="/events/<%= event.id %>" class="btn btn-primary me-1">edit</a>                            
-                            <form action="/events/remove/<%= event.id %>" method="post">
-                                <button onclick="confirm('are you sure ?');" 
-                                        type="submit" 
-                                        class="btn btn-danger"
-                                >
-                                    &times;
-                                </button>
-                            </form>
+                            <% if(user && user.id===event.user_id){ %>
+                                <form action="/events/remove/<%= event.id %>" method="post">
+                                    <button onclick="confirm('are you sure ?');" 
+                                            type="submit" 
+                                            class="btn btn-danger"
+                                    >
+                                        &times;
+                                    </button>
+                                </form>
+                            <% } %>
                             
                         </div>
                     </div>
                 </div>
             <% }); %>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <% if(pageActual <= 1) { %>    
+                            <li class="page-item disabled">                          
+                        <% }else{ %>    
+                            <li class="page-item">                                                      
+                        <% } %>    
+                        
+                        <a class="page-link" href="/events/page/<%= pageActual-1%>" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      
+                      <% if(pages){ %>
+                      <% pages.forEach(page =>{ %>
+                        <% if(pageActual){ %>
+                            <% if((page+1)==pageActual){ %>
+                                <li class="page-item active">
+                            <%} else {%>
+                                <li class="page-item">
+                            <% } %>                                        
+                        <% } %>   
+                                <a class="page-link" href="/events/page/<%= page+1 %>">                                                                                       
+                                    <%= page+1 %>                                
+                            </a>
+                        </li>
+                      <% })%>
+                      <% }%>
+                      
+                      <% if(pageActual==pages.length) { %>        
+                        <li class="page-item disabled">
+                      <% }else{ %>    
+                        <li class="page-item">
+                      <% } %>    
+                        
+                        <a class="page-link" href="/events/page/<%= Number(pageActual)+1 %>" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+            </div>
         </div>
     </div>
 <%- include('../partials/footer') -%>    

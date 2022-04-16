@@ -2,11 +2,13 @@ const express = require('express');
 const router= express.Router()
 const eventController = require('../controller/eventController')
 const { body, validationResult } = require('express-validator');
+const isAutenticated = require('../middleware/isAuthenticated')
 
+router.get('/page/:id',eventController.getPagination)
 
 router.get('/',eventController.getAllEvents)
 
-router.get('/create',eventController.CreateEvent)
+router.get('/create',isAutenticated,eventController.CreateEvent)
 
 router.post('/',
             [
@@ -29,8 +31,8 @@ router.post('/',
             }
             )
 
-router.get('/:id',eventController.editEvent)
-router.post('/remove/:id',eventController.removeEvent)
+router.get('/:id',isAutenticated,eventController.editEvent)
+router.post('/remove/:id',isAutenticated,eventController.removeEvent)
 router.post('/update/:id',[
             body('title').isLength({min:5}).withMessage('the title should have 5 caracter at min'),
             body('description').isLength({min:10}).withMessage('the description should have at min 10 caracters'),
@@ -38,9 +40,7 @@ router.post('/update/:id',[
             body('date').isDate()
             ],
             (req,res)=>{
-                const errors=validationResult(req);
-                console.log('errors',errors)
-                console.log('empty',errors.isEmpty())
+                const errors=validationResult(req);                
                 if(errors.isEmpty()){
                     eventController.updateEvent(req,res)
                 }else{

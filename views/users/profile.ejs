@@ -1,1 +1,16 @@
-profil
+<%- include('../partials/header') -%>    
+<%- include('../partials/navbar') -%> 
+
+    <div class="container mt-3 login">
+         
+       <%- include('./messages') -%>   
+       <hr /> 
+       <% if(locals.user) { %>   
+            <%= locals.user  %>   
+       <% } %>   
+
+
+    </div>    
+
+
+<%- include('../partials/footer') -%>    

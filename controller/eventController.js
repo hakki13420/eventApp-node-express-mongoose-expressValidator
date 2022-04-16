@@ -1,14 +1,41 @@
 require('../database/connexion')
 const mongoose=require('mongoose')
 const Event=require('../models/Event')
+const {nbEventPage}=require('../config/pagination')
 
-class eventController{
+function getNbPage(events){
+    return Math.round(events.length/nbEventPage);
+}
+let pages=[]
+
+class eventController{ 
+
+    //get pagination
+    static getPagination(req,res){
+        pages=[]
+       Event.find() 
+        .then((events)=>{
+            for(let i=0;i<getNbPage(events);i++){
+                pages.push(i)
+            }
+            const page=req.params.id
+            const eventsPage=events.slice((page-1)*nbEventPage,page*nbEventPage)
+            res.render('events/events',{events:eventsPage,pages:pages,pageActual:page})
+        })
+    }
 
     //get all events
     static getAllEvents(req,res){
+        pages=[]
         const message=req.flash('info')
         Event.find()
-            .then((events)=> res.render('events/events',{events,message}))        
+            .then((events)=> {
+                for(let i=0;i<getNbPage(events);i++){
+                    pages.push(i)
+                }
+                const eventsPage=events.slice(0,nbEventPage)
+                res.render('events/events',{events:eventsPage,message,pages:pages,pageActual:1})
+            })        
             .catch(err=>console.log(err))
     }
 
@@ -23,7 +50,8 @@ class eventController{
             title:req.body.title,
             description:req.body.description,
             location:req.body.location,
-            date:req.body.date
+            date:req.body.date,
+            user_id:req.user.id
         });        
         newEvent.save()
             .then(()=>{

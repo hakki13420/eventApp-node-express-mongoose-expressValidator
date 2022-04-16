@@ -32,6 +32,12 @@ app.use(session({
   app.use(passport.initialize())
   app.use(passport.session())
 
+  //regiter logged user
+  app.get('*',(req,res,next)=>{
+    res.locals.user=req.user || null;
+    next()  
+  })
+
 //=============routes==========
 //home route
 app.get('/',(req,res)=>res.redirect('/events'))

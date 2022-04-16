@@ -38,7 +38,9 @@
                 <%- include('./messages') -%>                 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn bt btn-primary">Update</button>
+                <% if(user && user.id===event.user_id){ %>
+                    <button type="submit" class="btn bt btn-primary">Update</button>
+                <% } %>
             </div>
         </form>
     </div>

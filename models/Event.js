@@ -17,10 +17,13 @@ const eventSchema=mongoose.Schema({
         type:String,      
         required:true
     },
-    date:{
- 
+    date:{ 
         type:Date,        
         default:new Date()
+    },
+    user_id:{
+        type:String,
+        required:true
     }    
 },
 {

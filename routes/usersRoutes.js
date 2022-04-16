@@ -1,24 +1,29 @@
 const express=require('express');
 const router=express.Router();
 const UserController = require('../controller/userController')
-const passport = require('passport')
-
+const passport = require('passport');
+const { redirect } = require('express/lib/response');
+const isAutenticated =require('../middleware/isAuthenticated')
 
 router.get('/login',(req,res)=>{
-    res.render('users/login')
+    const error=req.flash('error')
+    if(error){
+        res.render('users/login',{error})
+    }
 })
 
-router.post('/login', (req,res)=>{
-    res.json('process login form')
-})
+router.post('/login',
+        passport.authenticate('login.strategy',{
+            successRedirect:'/users/profile',
+            failureRedirect:'/users/login',
+            failureMessage:true,
+            successMessage:true
+        })
+)
 
 router.get('/register',(req,res)=>{
                 const error=req.flash('error')
                 if(error){
-                    console.log('error',req.flash('error'))
-
-                    console.log('err',req.flash('error'))
-                    
                     res.render('users/register',{error})
                 }else UserController.registerUser(req,res)
             }
@@ -33,10 +38,11 @@ router.post('/register',
             UserController.addUser)
 
 router.get('/logout',(req,res)=>{
-    res.json('process logout')
+    req.logout();
+    res.redirect('/users/login')
 })
 
-router.get('/profile',(req,res)=>{
+router.get('/profile',isAuthenticated,(req,res)=>{
     res.render('users/profile')
 })
 

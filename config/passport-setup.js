@@ -11,6 +11,7 @@ passport.deserializeUser((id,done)=>{
     })        
 })
 
+//register strategy
 passport.use('local.register',new localStrategy({
         usernameField:'email',
         passwordField:'password',
@@ -40,3 +41,27 @@ passport.use('local.register',new localStrategy({
     }
     )
 );
+
+//login strategy
+passport.use('login.strategy',new localStrategy({
+        usernameField:'email',
+        passwordField:'password',
+        passReqToCallback:true
+    },(req,username,password,done)=>{
+        User.findOne({email:username},(err,user)=>{
+            if(err){
+                return done(null,false,req.flash('error','error in login try again'))
+            }
+            if(!user){
+                return done(null, false,req.flash('error','user not registred please register first'))
+            }
+            if(user){
+                if(user.comparePassword(password,user.password)){                    
+                    return done(null,user,req.flash('success','welcom'+user.email))
+                }else{
+                    return done(null,false,req.flash('error','password error'))
+                }
+            }
+        })
+    })
+)
