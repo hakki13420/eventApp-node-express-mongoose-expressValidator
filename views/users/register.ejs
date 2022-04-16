@@ -2,13 +2,14 @@
 <%- include('../partials/navbar') -%> 
 
     <div class="container mt-3 login">
-        <div class="row">
+        <div class="row">            
             <div class="col-md-10 offset-md-1">
                 <div class="card card-container">
                     <div class="card-header text-center">
                         <h4>SignUp</h4>
                     </div>                    
-                    <div class="card-body d-flex justify-content-between">
+                    <%- include('./messages') -%>    
+                    <div class="card-body d-flex justify-content-between">                        
                         <div class="left-login">
                             <img src="https://picsum.photos/200" alt="lorem²" />
                         </div>
@@ -16,7 +17,7 @@
                             <form action="/users/register" method="post">
                                 <input type="email" name="email" class="form-control mb-2" placeholder="email">
                                 <input type="password" name="password" class="form-control mb-2" placeholder="password">                                              
-                                <input type="password" name="confirm-password" class="form-control" placeholder="confirm password">
+                                <input type="password" name="confirmPassword" class="form-control" placeholder="confirm password">
                         </div>
                     </div>                          
     

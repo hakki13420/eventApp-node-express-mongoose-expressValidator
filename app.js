@@ -4,6 +4,8 @@ const usersRoutes=require('./routes/usersRoutes')
 const bodyParser=require('body-parser');
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport =require('passport')
+const passportSetup=require('./config/passport-setup')
 
 const app = express();
 
@@ -25,6 +27,10 @@ app.use(session({
     cookie: { MaxAge: 60000 * 15 }
   }))
   app.use(flash())
+
+//integration passport js
+  app.use(passport.initialize())
+  app.use(passport.session())
 
 //=============routes==========
 //home route

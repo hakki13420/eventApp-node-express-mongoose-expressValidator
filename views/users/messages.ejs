@@ -1,0 +1,13 @@
+
+
+<% if(locals.error && locals.error!="") { %>
+    <p class="text-danger mt-3 ms-2">
+        <%= locals.error %>
+    </p>
+<% } %>
+
+<% if(locals.success && locals.success!="") { %>
+    <div class="alert alert-success mt-3">
+        <%= success %>
+    </div>
+<% } %>
