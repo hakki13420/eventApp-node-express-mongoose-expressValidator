@@ -1,11 +1,8 @@
 require('../database/connexion')
 const mongoose=require('mongoose')
 const Event=require('../models/Event')
-const {nbEventPage}=require('../config/pagination')
+const {nbEventPage, getPages, getNbPage}=require('../config/pagination')
 
-function getNbPage(events){
-    return Math.round(events.length/nbEventPage);
-}
 let pages=[]
 
 class eventController{ 
@@ -15,9 +12,7 @@ class eventController{
         pages=[]
        Event.find() 
         .then((events)=>{
-            for(let i=0;i<getNbPage(events);i++){
-                pages.push(i)
-            }
+            pages=getPages(events);
             const page=req.params.id
             const eventsPage=events.slice((page-1)*nbEventPage,page*nbEventPage)
             res.render('events/events',{events:eventsPage,pages:pages,pageActual:page})
@@ -30,9 +25,7 @@ class eventController{
         const message=req.flash('info')
         Event.find()
             .then((events)=> {
-                for(let i=0;i<getNbPage(events);i++){
-                    pages.push(i)
-                }
+                pages=getPages(events)
                 const eventsPage=events.slice(0,nbEventPage)
                 res.render('events/events',{events:eventsPage,message,pages:pages,pageActual:1})
             })        
