@@ -7,6 +7,7 @@ const flash = require('connect-flash')
 const passport =require('passport')
 const passportSetup=require('./config/passport-setup')
 
+
 const app = express();
 
 //using ejs engine views
@@ -15,9 +16,14 @@ app.set('view engine','ejs')
 //static folder
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
+app.use(express.static('upload'))
+
+
+
 //middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //session and flash (settings)
 app.use(session({
@@ -48,3 +54,4 @@ app.use('/users',usersRoutes)
 
 
 app.listen(5000,()=>console.log('server started succefully'))
+

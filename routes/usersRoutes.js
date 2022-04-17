@@ -4,6 +4,22 @@ const UserController = require('../controller/userController')
 const passport = require('passport');
 const { redirect } = require('express/lib/response');
 const isAutenticated =require('../middleware/isAuthenticated')
+const multer=require('multer')
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'upload/images')
+    },
+    filename: function (req, file, cb) {
+      const ext=file.originalname.split('.')[1]
+      
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)+"."+ext
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+  })
+  
+  const upload = multer({ storage: storage })
 
 router.get('/login',(req,res)=>{
     const error=req.flash('error')
@@ -44,6 +60,12 @@ router.get('/logout',(req,res)=>{
 
 router.get('/profile',isAuthenticated,(req,res)=>{
     res.render('users/profile')
+})
+
+
+router.post('/profile/upload',isAutenticated,upload.single('avatar') ,(req,res)=>{
+    UserController.addAvatar(req,res);
+    //console.log('avatar name',req.file.filename)
 })
 
 module.exports=router

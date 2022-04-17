@@ -10,6 +10,10 @@ const schemaUser=mongoose.Schema({
         type:String,
         required:true,
         minLength:6
+    },
+    avatar:{
+        type:String,
+        required:true
     }
 }, 
 {

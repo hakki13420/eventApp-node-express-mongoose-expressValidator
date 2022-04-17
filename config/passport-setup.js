@@ -15,6 +15,7 @@ passport.deserializeUser((id,done)=>{
 passport.use('local.register',new localStrategy({
         usernameField:'email',
         passwordField:'password',
+        
         passReqToCallback:true
     },(req,username,password,done)=>{
         if(req.body.password!=req.body.confirmPassword){
@@ -29,7 +30,8 @@ passport.use('local.register',new localStrategy({
                     const newUser=new User()
                     newUser.email=req.body.email,
                     newUser.password=newUser.hashPassword(req.body.password)
-                    
+                    newUser.avatar='avatar.png'
+
                     newUser.save()
                         .then((user)=>{                            
                             return done(null,user,req.flash('success','user added successfuly'))

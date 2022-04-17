@@ -1,7 +1,7 @@
 const nbEventPage=8;
 
 function getNbPage(events){
-    return Math.round(events.length/nbEventPage);
+    return Math.ceil(events.length/nbEventPage);
 }
 
 const getPages=(events)=>{

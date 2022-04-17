@@ -2,12 +2,34 @@
 <%- include('../partials/navbar') -%> 
 
     <div class="container mt-3 login">
-         
-       <%- include('./messages') -%>   
+       <div class="row">
+           <%- include('./messages') -%>              
+           <div class="col-md-3">
+               <% if(user.avatar){ %>
+               <img src="/images/<%= user.avatar %>"
+                    style="width:200px; height:200px; border-radius:50%"
+                    alt=""
+                >
+               <% }else{ %>
+                <img src="/images/avatar"
+                    style="width:200px; height:200px; border-radius:50%"
+                    alt=""
+                >
+               <% } %>
+
+           </div>
+           <div class="col-md-9">
+            <h4>Profile</h4>
+            <hr>
+                email: <%= user.email %>
+                <form action="/users/profile/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="avatar" class="form-control">
+                    <button type="submit" class="btn btn-primary">upload</button>
+                </form>
+           </div>
+       </div>  
        <hr /> 
-       <% if(locals.user) { %>   
-            <%= locals.user  %>   
-       <% } %>   
+       
 
 
     </div>    
